@@ -247,7 +247,7 @@ namespace Escola.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Escola.Models.Usuario", b =>
@@ -291,15 +291,35 @@ namespace Escola.Migrations
                         .HasColumnType("VARCHAR(80)")
                         .HasColumnName("Nome");
 
+                    b.Property<int?>("RoleId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INT")
+                        .HasColumnName("RoleId")
+                        .HasDefaultValueSql("1");
+
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("VARCHAR(8)")
+                        .HasMaxLength(16)
+                        .HasColumnType("VARCHAR(16)")
                         .HasColumnName("Senha");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Usuarios", (string)null);
+                });
+
+            modelBuilder.Entity("Escola.Models.Usuario", b =>
+                {
+                    b.HasOne("Escola.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("FK_Usuarios_Roles_Id");
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

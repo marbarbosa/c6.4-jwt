@@ -78,7 +78,7 @@ namespace Escola.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Role",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -87,7 +87,7 @@ namespace Escola.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,14 +99,20 @@ namespace Escola.Migrations
                     Nome = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(80)", maxLength: 80, nullable: false),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Senha = table.Column<string>(type: "VARCHAR(8)", maxLength: 8, nullable: false),
+                    Senha = table.Column<string>(type: "VARCHAR(16)", maxLength: 16, nullable: false),
                     DataInclusao = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValueSql: "GETDATE()"),
                     DataUltAtu = table.Column<DateTime>(type: "DATETIME", nullable: false, defaultValueSql: "GETDATE()"),
-                    DataExclusao = table.Column<DateTime>(type: "DATETIME", nullable: true)
+                    DataExclusao = table.Column<DateTime>(type: "DATETIME", nullable: true),
+                    RoleId = table.Column<int>(type: "INT", nullable: false, defaultValueSql: "1")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Roles_Id",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -120,6 +126,11 @@ namespace Escola.Migrations
                 table: "Pessoas",
                 column: "Cpf",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_RoleId",
+                table: "Usuarios",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -134,10 +145,10 @@ namespace Escola.Migrations
                 name: "Pessoas");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Roles");
         }
     }
 }

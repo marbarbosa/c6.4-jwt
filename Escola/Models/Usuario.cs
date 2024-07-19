@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace Escola.Models
 {
@@ -18,5 +20,9 @@ namespace Escola.Models
         public DateTime? DataUltAtu { get; set; }
 
         public DateTime? DataExclusao { get; set; }
+
+        [ForeignKey("Roles")]
+        public int? RoleId { get; set; }
+        public Role? Role { get; set; }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Escola.Controllers
 {
     [ApiController]
+    [Route("")]
     public class AlunoController : ControllerBase
     {
         [HttpGet("v1/alunos")]
@@ -26,7 +27,7 @@ namespace Escola.Controllers
 
             catch
             {
-                return StatusCode(500,value: new ResultViewModel<List<Aluno>>(errors: "AC0102 - Falha interna no servidor."));
+                return StatusCode(500,value: new ResultViewModel<List<Aluno>>(errors: "AL1G01 - Falha interna no servidor."));
             }
         }
 
@@ -48,7 +49,7 @@ namespace Escola.Controllers
             }
             catch
             {
-                return StatusCode(500, value: new ResultViewModel<List<Aluno>>(errors: "AC0102 - Falha interna no servidor."));
+                return StatusCode(500, value: new ResultViewModel<List<Aluno>>(errors: "AL2G01 - Falha interna no servidor."));
             }
         }
 
@@ -101,11 +102,11 @@ namespace Escola.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(500, new ResultViewModel<Aluno>("AC0301 - Não possível retornar consulta de alunos."));
+                return StatusCode(500, new ResultViewModel<Aluno>("AL3P01 - Não possível retornar consulta de alunos."));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<Aluno>("AC0302 - Falha interna no servidor."));
+                return StatusCode(500, new ResultViewModel<Aluno>("AL3P02 - Falha interna no servidor."));
             }
         }
 
@@ -153,11 +154,11 @@ namespace Escola.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(500, new ResultViewModel<Aluno>("AC0401 - Não possível retornar consulta de alunos."));
+                return StatusCode(500, new ResultViewModel<Aluno>("AL4U01 - Não possível retornar consulta de alunos."));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<Aluno>("AC0402 - Falha interna no servidor."));
+                return StatusCode(500, new ResultViewModel<Aluno>("AL4U02 - Falha interna no servidor."));
             }
         }
 
@@ -181,11 +182,11 @@ namespace Escola.Controllers
             }
             catch (DbUpdateException ex)
             {
-                return StatusCode(500, new ResultViewModel<Aluno>("AC0501 - Não possível retornar consulta de alunos."));
+                return StatusCode(500, new ResultViewModel<Aluno>("AL5D01 - Não possível retornar consulta de alunos."));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new ResultViewModel<Aluno>("AC0502 - Falha interna no servidor."));
+                return StatusCode(500, new ResultViewModel<Aluno>("AL5D02 - Falha interna no servidor."));
             }
         }
     }

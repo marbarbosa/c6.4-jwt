@@ -11,7 +11,6 @@ namespace Escola.Data.Mappings
             // Tabela
             builder.ToTable("Usuarios");
 
-
             // Primary key
             builder.HasKey(x => x.Id);
             // Identity
@@ -37,7 +36,7 @@ namespace Escola.Data.Mappings
                 .IsRequired()
                 .HasColumnName("Senha")
                 .HasColumnType("VARCHAR")
-                .HasMaxLength(8);
+                .HasMaxLength(16);
 
             builder.Property(x => x.DataInclusao)
                 .IsRequired()
@@ -55,6 +54,19 @@ namespace Escola.Data.Mappings
                 .HasColumnName("DataExclusao")
                 .HasColumnType("DATETIME");
 
+            // foreign key
+            builder.Property(x => x.RoleId)
+                .IsRequired()
+                .HasColumnName("RoleId")
+                .HasColumnType("INT")
+                .HasDefaultValueSql("1");
+
+            builder.HasOne(x => x.Role)
+                .WithMany()
+                .HasForeignKey(x => x.RoleId)
+                .IsRequired(false)
+                .HasConstraintName("FK_Usuarios_Roles_Id")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

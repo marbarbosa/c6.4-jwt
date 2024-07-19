@@ -9,7 +9,7 @@ namespace Escola.Data.Mappings
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             // Tabela
-            builder.ToTable("Role");
+            builder.ToTable("Roles");
 
             // Primary key
             builder.HasKey(x => x.Id);
